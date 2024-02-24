@@ -1,27 +1,26 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Math Engine
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+This is the math engine for the calculator. I wrote this package for fun, you also just can go to pub.dev and use a package from there. This package does not support every feature, but it has everything needed for the calculator.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Calculate basic math operations.
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+1. Add the package to your `pubspec.yaml` file.
+```yaml
+dependencies:
+    math_engine: 
+        path: ../math_engine/
+```
+2. Import the package
+```dart
+import 'package:math_engine/math_engine.dart';
+```
+3. Use the package
+- See [Usage](#usage)
+
 
 ## Usage
 
@@ -34,6 +33,4 @@ const like = 'sample';
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+I wrote this package just for fun and it is not published on pub.dev. I only use it for the calculator project.

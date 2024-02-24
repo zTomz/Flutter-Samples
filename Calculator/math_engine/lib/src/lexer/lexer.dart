@@ -1,4 +1,4 @@
-import 'package:math_engine/src/token.dart';
+import 'package:math_engine/src/lexer/token.dart';
 
 class Lexer {
   static List<Token> tokenize(String input) {
@@ -14,14 +14,14 @@ class Lexer {
       if (src[0] == '(') {
         tokens.add(
           Token(
-            content: src.removeAt(0),
+            value: src.removeAt(0),
             type: TokenType.openParen,
           ),
         );
       } else if (src[0] == ')') {
         tokens.add(
           Token(
-            content: src.removeAt(0),
+            value: src.removeAt(0),
             type: TokenType.closeParen,
           ),
         );
@@ -33,7 +33,7 @@ class Lexer {
           src[0] == '%') {
         tokens.add(
           Token(
-            content: src.removeAt(0),
+            value: src.removeAt(0),
             type: TokenType.operator,
           ),
         );
@@ -48,14 +48,14 @@ class Lexer {
           }
           tokens.add(
             Token(
-              content: number,
+              value: number,
               type: TokenType.number,
             ),
           );
         } else {
           tokens.add(
             Token(
-              content: src.removeAt(0),
+              value: src.removeAt(0),
               type: TokenType.unknown,
             ),
           );
@@ -65,7 +65,7 @@ class Lexer {
 
     tokens.add(
       Token(
-        content: '',
+        value: '',
         type: TokenType.end,
       ),
     );

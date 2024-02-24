@@ -1,15 +1,15 @@
 class Token {
-  final String content;
+  final String value;
   final TokenType type;
 
   Token({
-    required this.content,
+    required this.value,
     required this.type,
   });
 
   @override
   String toString() {
-    return 'Token(content: $content, type: $type)';
+    return 'Token(value: $value, type: $type)';
   }
 }
 

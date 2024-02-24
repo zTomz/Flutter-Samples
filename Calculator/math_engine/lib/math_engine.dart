@@ -3,4 +3,4 @@
 /// More dartdocs go here.
 library;
 
-export 'src/lexer.dart';
+export 'src/lexer/lexer.dart';
