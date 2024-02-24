@@ -1,6 +1,3 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
-library;
+library math_engine;
 
-export 'src/lexer/lexer.dart';
+export 'src/calculator/calculator.dart';

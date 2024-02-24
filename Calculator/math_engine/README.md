@@ -24,11 +24,9 @@ import 'package:math_engine/math_engine.dart';
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
 ```dart
-const like = 'sample';
+final input = '5 * (1 + 2) * 3';
+final num result = Calculator.calculate(input);
 ```
 
 ## Additional information

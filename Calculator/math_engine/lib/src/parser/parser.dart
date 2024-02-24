@@ -46,13 +46,15 @@ class Parser {
         tokens[0].value == '/' ||
         tokens[0].value == '%' ||
         tokens[0].value == '^') {
-      final operator = tokens.removeAt(0).value == '*'
+      final operator = tokens[0].value == '*'
           ? Operator.multiply
-          : tokens.removeAt(0).value == '/'
+          : tokens[0].value == '/'
               ? Operator.divide
-              : tokens.removeAt(0).value == '%'
+              : tokens[0].value == '%'
                   ? Operator.mod
                   : Operator.power;
+
+      tokens.removeAt(0);
 
       final right = _parsePrimaryExpression();
 
