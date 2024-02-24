@@ -1,14 +1,12 @@
 name: math_engine
-description: A starting point for Dart libraries or applications.
+description: A simple math engine.
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/zTomz/Flutter-Sample-Projects/tree/main/Calculator/math_engine
 
 environment:
   sdk: ^3.3.0
 
-# Add regular dependencies here.
 dependencies:
-  # path: ^1.8.0
 
 dev_dependencies:
   lints: ^3.0.0
