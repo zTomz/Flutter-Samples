@@ -6,6 +6,11 @@ class Token {
     required this.content,
     required this.type,
   });
+
+  @override
+  String toString() {
+    return 'Token(content: $content, type: $type)';
+  }
 }
 
 enum TokenType {
@@ -14,4 +19,5 @@ enum TokenType {
   openParen,
   closeParen,
   unknown,
+  end,
 }
