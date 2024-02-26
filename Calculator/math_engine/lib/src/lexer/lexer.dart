@@ -30,7 +30,9 @@ class Lexer {
           src[0] == '*' ||
           src[0] == '/' ||
           src[0] == '^' ||
-          src[0] == '%') {
+          src[0] == '%' ||
+          src[0] == 'x' ||
+          src[0] == ':') {
         tokens.add(
           Token(
             value: src.removeAt(0),

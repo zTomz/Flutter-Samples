@@ -45,10 +45,12 @@ class Parser {
     while (_notAtEnd() && tokens[0].value == '*' ||
         tokens[0].value == '/' ||
         tokens[0].value == '%' ||
-        tokens[0].value == '^') {
-      final operator = tokens[0].value == '*'
+        tokens[0].value == '^' ||
+        tokens[0].value == 'x' ||
+        tokens[0].value == ':') {
+      final operator = tokens[0].value == '*' || tokens[0].value == 'x'
           ? Operator.multiply
-          : tokens[0].value == '/'
+          : tokens[0].value == '/' || tokens[0].value == ':'
               ? Operator.divide
               : tokens[0].value == '%'
                   ? Operator.mod

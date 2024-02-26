@@ -19,5 +19,9 @@ void main() {
     test('2 * 2 + 2 ^ 5', () {
       expect(Calculator.calculate('2 * 2 + 2 ^ 5'), 36.0);
     });
+
+    test('2 x 2 : 5', () {
+      expect(Calculator.calculate('2 x 2 : 5'), 0.8);
+    });
   });
 }
