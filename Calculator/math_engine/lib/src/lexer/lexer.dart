@@ -1,3 +1,4 @@
+import 'package:math_engine/src/errors.dart';
 import 'package:math_engine/src/lexer/token.dart';
 
 class Lexer {
@@ -7,6 +8,18 @@ class Lexer {
 
     while (src.isNotEmpty) {
       if (_isSkipable(src[0])) {
+        src.removeAt(0);
+        continue;
+      }
+
+      if (src[0] == '+' && src[1] == '-') {
+        tokens.add(
+          Token(
+            value: '-',
+            type: TokenType.operator,
+          ),
+        );
+        src.removeAt(0);
         src.removeAt(0);
         continue;
       }
