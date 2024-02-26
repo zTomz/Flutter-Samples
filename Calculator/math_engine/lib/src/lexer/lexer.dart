@@ -61,6 +61,10 @@ class Lexer {
               type: TokenType.unknown,
             ),
           );
+
+          throw UnknownTokenTypeException(
+            'Unknown token type: ${tokens.last.value} of type ${tokens.last.type}',
+          );
         }
       }
     }

@@ -81,7 +81,9 @@ class Parser {
         _expect(TokenType.closeParen);
         return expression;
       default:
-        throw "Unexpected token ${tokens[0].value} of type ${tokens[0].type}";
+        throw UnexpectedTokenException(
+          'Expected number or open paren but got ${tokens[0].value} of type ${tokens[0].type}',
+        );
     }
   }
 
@@ -93,7 +95,9 @@ class Parser {
     if (_notAtEnd() && tokens[0].type == type) {
       return tokens.removeAt(0);
     } else {
-      throw "Expected ${type.toString()} but got ${tokens[0].value} of type ${tokens[0].type}";
+      throw WrongTokenTypeException(
+        'Expected ${type.toString()} but got ${tokens[0].value} of type ${tokens[0].type}',
+      );
     }
   }
 }
