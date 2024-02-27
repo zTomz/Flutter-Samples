@@ -53,7 +53,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
           Expanded(
             child: Container(
               padding: const EdgeInsets.all(32),
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).colorScheme.background,
               alignment: Alignment.centerRight,
               child: Consumer(
                 builder: (context, CalculationProvider calculationProvider, _) {
@@ -88,8 +88,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
               ),
             ),
           ),
-          SizedBox(
+          Container(
             height: (MediaQuery.of(context).size.width / 4) * 5,
+            color: Theme.of(context).colorScheme.secondary,
             child: GridView.builder(
               padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(),
@@ -107,7 +108,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: Theme.of(context).colorScheme.background,
                       ),
                     ),
                     child: Text(

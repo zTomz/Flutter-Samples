@@ -24,16 +24,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Calculator',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-        useMaterial3: false,
-      ),
-      darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.red,
-          brightness: Brightness.dark,
-          secondary: const Color(0xFF3A4655),
-          onSecondary: const Color(0xFF828E95),
-          background: const Color(0xFF323C4A),
+          seedColor: const Color(0xFFC94940),
+          secondary: const Color(0xFFDDE4E4),
+          onSecondary: const Color(0xFFB0BFBF),
+          background: const Color(0xFFFFFFFF),
+          onBackground: const Color(0xFF141414),
         ),
         textTheme: const TextTheme(
           headlineLarge: TextStyle(
@@ -41,7 +37,21 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w300,
           ),
         ),
-        useMaterial3: true,
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.red,
+          brightness: Brightness.dark,
+          secondary: const Color(0xFF323C4A),
+          onSecondary: const Color(0xFF828E95),
+          background: const Color(0xFF3A4655),
+        ),
+        textTheme: const TextTheme(
+          headlineLarge: TextStyle(
+            fontSize: 60,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
       ),
       home: const CalculatorPage(),
     );
