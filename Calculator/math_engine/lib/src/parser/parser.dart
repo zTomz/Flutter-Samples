@@ -1,3 +1,4 @@
+import 'package:math_engine/src/errors.dart';
 import 'package:math_engine/src/lexer/token.dart';
 import 'package:math_engine/src/parser/ast.dart';
 import 'package:math_engine/src/parser/operator.dart';

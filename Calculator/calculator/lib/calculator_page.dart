@@ -64,6 +64,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
                       Text(
                         calculationProvider.calculation,
                         textAlign: TextAlign.right,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 5,
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium

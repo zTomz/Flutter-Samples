@@ -52,7 +52,7 @@ class CalculationProvider extends ChangeNotifier {
   void calculate() {
     try {
       _result = Calculator.calculate(_calculation).toString();
-    } catch (e) {
+    } catch (error) {
       _result = "NaN";
     }
 
