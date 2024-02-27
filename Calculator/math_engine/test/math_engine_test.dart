@@ -23,5 +23,13 @@ void main() {
     test('2 x 2 : 5', () {
       expect(Calculator.calculate('2 x 2 : 5'), 0.8);
     });
+
+    test('2e-3 * 3', () {
+      expect(Calculator.calculate('2e-3 * 3'), 0.006);
+    });
+
+    test('6e-3 * 10 + ( 9 + 4 ) / 2', () {
+      expect(Calculator.calculate('6e-3 * 10 + ( 9 + 4 ) / 2'), 6.56);
+    });
   });
 }

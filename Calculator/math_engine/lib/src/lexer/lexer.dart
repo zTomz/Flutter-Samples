@@ -56,17 +56,61 @@ class Lexer {
         // Multiple characters
         if (int.tryParse(src[0]) != null) {
           String number = '';
+          String exponent = '';
+          bool exponentIsPositive = true;
+
           while (src.isNotEmpty &&
               (int.tryParse(src[0]) != null ||
                   (src[0] == '.' && !number.contains('.')))) {
             number += src.removeAt(0);
           }
-          tokens.add(
-            Token(
-              value: number,
-              type: TokenType.number,
-            ),
-          );
+
+          if (src.length >= 3 && src[0] == 'e') {
+            if (src[1] == '+') {
+              exponentIsPositive = true;
+            } else if (src[1] == '-') {
+              exponentIsPositive = false;
+            } else {
+              throw UnexpectedTokenException(
+                'Unexpected token: ${src[1]}, expected + or -',
+              );
+            }
+
+            // Remove the e and the + or -
+            src.removeAt(0);
+            src.removeAt(0);
+
+            // Get the exponent
+            while (src.isNotEmpty && int.tryParse(src[0]) != null) {
+              exponent += src.removeAt(0);
+            }
+          }
+
+          if (exponent == '') {
+            tokens.add(
+              Token(
+                value: number,
+                type: TokenType.number,
+              ),
+            );
+          } else {
+            if (exponentIsPositive) {
+              tokens.add(
+                Token(
+                  value: '$number${('0' * int.parse(exponent))}',
+                  type: TokenType.number,
+                ),
+              );
+            } else {
+              tokens.add(
+                Token(
+                  value:
+                      '0.${'0' * (int.parse(exponent) - 1)}${number.replaceAll('.', '')}',
+                  type: TokenType.number,
+                ),
+              );
+            }
+          }
         } else {
           tokens.add(
             Token(
