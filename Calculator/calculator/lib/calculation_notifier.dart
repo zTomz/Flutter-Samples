@@ -13,8 +13,13 @@ class CalculationProvider extends ChangeNotifier {
   void addToCalculation(String text) {
     // If the result is not empty, set the calculation to the result and clear the result
     if (_result.isNotEmpty) {
-      _calculation = _result;
-      _lastAppendedStrings = [_result];
+      if (_result == "NaN") {
+        _calculation = "";
+        _lastAppendedStrings.clear();
+      } else {
+        _calculation = _result;
+        _lastAppendedStrings = [_result];
+      }
       _result = "";
     }
 
