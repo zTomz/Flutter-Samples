@@ -60,4 +60,11 @@ class CalculatorButton {
             context.read<CalculationProvider>().calculate();
           },
         );
+
+  CalculatorButton.empty()
+      : this(
+          text: "",
+          color: Colors.transparent,
+          onPressed: (_) {},
+        );
 }

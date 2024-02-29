@@ -1,17 +1,16 @@
 import 'package:calculator/calculation_notifier.dart';
 import 'package:calculator/calculator_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CalculatorPage extends StatefulWidget {
-  const CalculatorPage({super.key});
+class MobileCalculatorPage extends StatefulWidget {
+  const MobileCalculatorPage({super.key});
 
   @override
-  State<CalculatorPage> createState() => _CalculatorPageState();
+  State<MobileCalculatorPage> createState() => _MobileCalculatorPageState();
 }
 
-class _CalculatorPageState extends State<CalculatorPage> {
+class _MobileCalculatorPageState extends State<MobileCalculatorPage> {
   String calculation = "";
   String result = "";
 
@@ -99,7 +98,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
               ),
-              itemCount: 20,
+              itemCount: buttons.length,
               itemBuilder: (BuildContext context, int index) {
                 final calculatorButton = buttons[index];
 

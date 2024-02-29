@@ -1,5 +1,5 @@
 import 'package:calculator/calculation_notifier.dart';
-import 'package:calculator/calculator_page.dart';
+import 'package:calculator/presentation/responsive_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const CalculatorPage(),
+      home: const ResponsivePage(),
     );
   }
 }
