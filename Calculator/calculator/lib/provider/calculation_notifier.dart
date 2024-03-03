@@ -51,11 +51,22 @@ class CalculationProvider extends ChangeNotifier {
 
   void calculate() {
     try {
-      _result = Calculator.calculate(_calculation).toString();
+      _result =
+          Calculator.calculate(_calculation).toString().replaceFirst('.0', '');
     } catch (error) {
       _result = "NaN";
     }
 
     notifyListeners();
+  }
+
+  String preCalculate() {
+    try {
+      return Calculator.calculate(_calculation)
+          .toString()
+          .replaceFirst('.0', '');
+    } catch (error) {
+      return "";
+    }
   }
 }

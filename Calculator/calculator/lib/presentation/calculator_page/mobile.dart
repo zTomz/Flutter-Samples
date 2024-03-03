@@ -1,6 +1,7 @@
-import 'package:calculator/calculation_notifier.dart';
-import 'package:calculator/calculator_button.dart';
+import 'package:calculator/provider/calculation_notifier.dart';
+import 'package:calculator/models/calculator_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class MobileCalculatorPage extends StatefulWidget {
@@ -15,6 +16,25 @@ class _MobileCalculatorPageState extends State<MobileCalculatorPage> {
   String result = "";
 
   List<CalculatorButton> buttons = [];
+
+  late PageController pageController;
+  int currentPage = 1;
+
+  GlobalKey stackKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+
+    pageController = PageController(initialPage: currentPage);
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+
+    super.dispose();
+  }
 
   @override
   void didChangeDependencies() {
@@ -46,51 +66,122 @@ class _MobileCalculatorPageState extends State<MobileCalculatorPage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
     return Scaffold(
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(32),
-              color: Theme.of(context).colorScheme.background,
-              alignment: Alignment.centerRight,
-              child: Consumer(
-                builder: (context, CalculationProvider calculationProvider, _) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+            child: LayoutBuilder(
+              builder: (context, constraints) => Stack(
+                key: stackKey,
+                alignment: Alignment.center,
+                children: [
+                  PageView(
+                    controller: pageController,
+                    onPageChanged: (value) {
+                      setState(() {
+                        currentPage = value;
+                      });
+                    },
                     children: [
-                      Text(
-                        calculationProvider.calculation,
-                        textAlign: TextAlign.right,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 5,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(
-                              color: Theme.of(context).colorScheme.onSecondary,
-                            ),
+                      Container(
+                        padding: const EdgeInsets.all(32),
+                        color: Theme.of(context).colorScheme.background,
+                        alignment: Alignment.centerRight,
                       ),
-                      const SizedBox(height: 10),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Text(
-                          calculationProvider.result.endsWith('.0')
-                              ? calculationProvider.result
-                                  .replaceFirst('.0', '')
-                              : calculationProvider.result,
-                          style: Theme.of(context).textTheme.headlineLarge,
+                      Container(
+                        padding: const EdgeInsets.all(32),
+                        color: Theme.of(context).colorScheme.background,
+                        alignment: Alignment.centerRight,
+                        child: Consumer(
+                          builder: (context,
+                              CalculationProvider calculationProvider, _) {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  calculationProvider.calculation,
+                                  textAlign: TextAlign.right,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 5,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondary,
+                                      ),
+                                ),
+                                const SizedBox(height: 10),
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Text(
+                                    calculationProvider.result.isEmpty
+                                        ? calculationProvider.preCalculate()
+                                        : calculationProvider.result,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ),
                     ],
-                  );
-                },
+                  ),
+                  AnimatedPositioned(
+                    left: currentPage == 0 ? mediaQuery.size.width - 15 : 10,
+                    duration: const Duration(milliseconds: 300),
+                    child: Container(
+                      width: 5,
+                      height: 35,
+                      margin: const EdgeInsets.only(top: 17.75),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.secondary,
+                        borderRadius: BorderRadius.circular(90),
+                      ),
+                    ),
+                  ),
+
+                  /// This widget represents the app bar
+                  Positioned(
+                    top: 0,
+                    child: AnimatedContainer(
+                      width: mediaQuery.size.width,
+                      height:
+                          currentPage == 0 ? mediaQuery.padding.top + 60 : 0,
+                      padding: EdgeInsets.only(top: mediaQuery.padding.top),
+                      duration: const Duration(milliseconds: 300),
+                      color: Theme.of(context).colorScheme.secondary,
+                      child: currentPage == 0
+                          ? Row(
+                              children: [
+                                BackButton(
+                                  onPressed: () {
+                                    pageController.jumpToPage(1);
+                                  },
+                                ),
+                                Text(
+                                  "History",
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
+                                ),
+                              ],
+                            )
+                          : null,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
           Container(
-            height: (MediaQuery.of(context).size.width / 4) * 5,
+            height: (mediaQuery.size.width / 4) * 5,
             color: Theme.of(context).colorScheme.secondary,
             child: GridView.builder(
               padding: EdgeInsets.zero,
@@ -103,7 +194,13 @@ class _MobileCalculatorPageState extends State<MobileCalculatorPage> {
                 final calculatorButton = buttons[index];
 
                 return MaterialButton(
-                  onPressed: () => calculatorButton.onPressed(context),
+                  onPressed: () {
+                    if (currentPage != 1) {
+                      pageController.jumpToPage(1);
+                    }
+
+                    calculatorButton.onPressed(context);
+                  },
                   padding: EdgeInsets.zero,
                   child: Container(
                     alignment: Alignment.center,

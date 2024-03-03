@@ -1,5 +1,5 @@
-import 'package:calculator/calculation_notifier.dart';
-import 'package:calculator/calculator_button.dart';
+import 'package:calculator/provider/calculation_notifier.dart';
+import 'package:calculator/models/calculator_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -50,9 +50,43 @@ class _DesktopCalculatorPageState extends State<DesktopCalculatorPage> {
     return Scaffold(
       body: Row(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width / 2.5,
-            color: Colors.red,
+          SafeArea(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width / 2.5,
+              child: Container(
+                margin: const EdgeInsets.all(32.0),
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondary,
+                  borderRadius: BorderRadius.circular(32.0),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 75,
+                      padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.tertiary,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "History",
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            tooltip: "Clear History",
+                            icon: const Icon(Icons.delete_forever_rounded),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
           Expanded(
             child: Column(
@@ -106,7 +140,13 @@ class _DesktopCalculatorPageState extends State<DesktopCalculatorPage> {
                 ),
                 Container(
                   height: (MediaQuery.of(context).size.height / 7) * 3,
-                  color: Theme.of(context).colorScheme.secondary,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(32),
+                    ),
+                  ),
                   child: GridView.builder(
                     padding: EdgeInsets.zero,
                     physics: const NeverScrollableScrollPhysics(),

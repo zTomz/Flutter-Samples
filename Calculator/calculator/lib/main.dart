@@ -1,4 +1,4 @@
-import 'package:calculator/calculation_notifier.dart';
+import 'package:calculator/provider/calculation_notifier.dart';
 import 'package:calculator/presentation/responsive_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
           seedColor: const Color(0xFFC94940),
           secondary: const Color(0xFFE9EDED),
           onSecondary: const Color(0xFFB0BFBF),
+          tertiary: const Color(0xFFD2DADA),
           background: const Color(0xFFFFFFFF),
           onBackground: const Color(0xFF141414),
         ),
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           secondary: const Color(0xFF323C4A),
           onSecondary: const Color(0xFF828E95),
+          tertiary: const Color(0xFF29313D),
           background: const Color(0xFF3A4655),
         ),
         textTheme: const TextTheme(

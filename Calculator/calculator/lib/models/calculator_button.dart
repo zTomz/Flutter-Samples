@@ -1,4 +1,4 @@
-import 'package:calculator/calculation_notifier.dart';
+import 'package:calculator/provider/calculation_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
