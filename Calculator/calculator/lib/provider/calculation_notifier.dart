@@ -1,3 +1,4 @@
+import 'package:calculator/models/calculation.dart';
 import 'package:flutter/material.dart';
 import 'package:math_engine/math_engine.dart';
 
@@ -7,6 +8,9 @@ class CalculationProvider extends ChangeNotifier {
 
   String _result = "";
   String get result => _result;
+
+  List<Calculation> _history = [];
+  List<Calculation> get history => _history;
 
   List<String> _lastAppendedStrings = [];
 
@@ -56,6 +60,14 @@ class CalculationProvider extends ChangeNotifier {
     } catch (error) {
       _result = "NaN";
     }
+
+    _history.add(
+      Calculation(
+        calculation: _calculation,
+        result: _result,
+        calculationTime: DateTime.now(),
+      ),
+    );
 
     notifyListeners();
   }
