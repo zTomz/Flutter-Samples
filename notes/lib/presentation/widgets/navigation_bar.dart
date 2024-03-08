@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:notes/presentation/pages/new_note_page.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class NotesNavigationBar extends StatelessWidget {
@@ -23,7 +24,13 @@ class NotesNavigationBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const NewNotePage(),
+                  ),
+                );
+              },
               style: IconButton.styleFrom(
                 backgroundColor: Colors.black,
                 fixedSize: const Size(90, 90),

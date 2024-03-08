@@ -33,8 +33,12 @@ class HomePage extends StatelessWidget {
                       ),
                       IconButton.filledTonal(
                         onPressed: () {},
+                        style: IconButton.styleFrom(
+                          padding: const EdgeInsets.all(24),
+                        ),
                         icon: PhosphorIcon(
                           PhosphorIcons.squaresFour(),
+                          size: 40,
                         ),
                       ),
                     ],

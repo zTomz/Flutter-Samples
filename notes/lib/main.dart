@@ -36,10 +36,9 @@ class MyApp extends StatelessWidget {
         ),
         iconButtonTheme: IconButtonThemeData(
           style: IconButton.styleFrom(
-              backgroundColor: const Color(0xFF211E1C),
-              foregroundColor: const Color(0xFFFFFFFF),
-              iconSize: 45,
-              padding: const EdgeInsets.all(16)),
+            backgroundColor: const Color(0xFF211E1C),
+            foregroundColor: const Color(0xFFFFFFFF),
+          ),
         ),
         textTheme: GoogleFonts.loraTextTheme(
           const TextTheme(
@@ -48,6 +47,10 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Color(0xFFFFFFFF),
+          foregroundColor: Color(0xFF211E1C),
         ),
         useMaterial3: true,
       ),
