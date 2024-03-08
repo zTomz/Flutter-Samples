@@ -1,21 +1,19 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:notes/models/note/note.dart';
+import 'package:notes/presentation/widgets/navigation_bar.dart';
+import 'package:notes/provider/notes_provider.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
+    final notesProvider = context.watch<NotesProvider>();
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -46,140 +44,87 @@ class _HomePageState extends State<HomePage> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 4,
                   crossAxisSpacing: 4,
-                  children: [
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 1,
-                      mainAxisCellCount: 1.5,
-                      child: Container(
-                        color: Colors.red,
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 1,
-                      mainAxisCellCount: 1.5,
-                      child: Container(
-                        color: Colors.red,
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 2,
-                      mainAxisCellCount: 1,
-                      child: Container(
-                        color: Colors.red,
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 1,
-                      mainAxisCellCount: 1.5,
-                      child: Container(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 1,
-                      mainAxisCellCount: 1.5,
-                      child: Container(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 2,
-                      mainAxisCellCount: 1,
-                      child: Container(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 1,
-                      mainAxisCellCount: 1.5,
-                      child: Container(
-                        color: Colors.red,
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 1,
-                      mainAxisCellCount: 1.5,
-                      child: Container(
-                        color: Colors.red,
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 2,
-                      mainAxisCellCount: 1,
-                      child: Container(
-                        color: Colors.red,
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 1,
-                      mainAxisCellCount: 1.5,
-                      child: Container(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 1,
-                      mainAxisCellCount: 1.5,
-                      child: Container(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    StaggeredGridTile.count(
-                      crossAxisCellCount: 2,
-                      mainAxisCellCount: 1,
-                      child: Container(
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ],
+                  children: buildTiles(context, notesProvider.notes),
                 ),
               ],
             ),
           ),
-          Positioned(
+          const Positioned(
             bottom: 32,
-            child: Container(
-              width: 200,
-              height: 100,
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                color:
-                    Theme.of(context).colorScheme.secondary.withOpacity(0.175),
-                borderRadius: BorderRadius.circular(180),
-              ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 9, sigmaY: 9),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      style: IconButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        fixedSize: const Size(90, 90),
-                      ),
-                      icon: PhosphorIcon(
-                        PhosphorIcons.plus(),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      style: IconButton.styleFrom(
-                        backgroundColor: Colors.white.withOpacity(0.25),
-                        fixedSize: const Size(90, 90),
-                      ),
-                      icon: PhosphorIcon(
-                        PhosphorIcons.microphone(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          )
+            child: NotesNavigationBar(),
+          ),
         ],
       ),
     );
+  }
+
+  List<StaggeredGridTile> buildTiles(BuildContext context, List<Note> notes) {
+    List<StaggeredGridTile> tiles = [];
+
+    for (int i = 0; i < notes.length; i++) {
+      final currentNote = notes[i];
+      final markdownTheme = Theme.of(context).textTheme.apply(
+            fontSizeFactor: 1.5,
+            bodyColor: currentNote.color.computeLuminance() < 0.4
+                ? Colors.white
+                : Colors.black,
+            displayColor: currentNote.color.computeLuminance() < 0.4
+                ? Colors.white
+                : Colors.black,
+          );
+
+      final widget = Container(
+        padding: const EdgeInsets.all(26),
+        margin: const EdgeInsets.all(8),
+        decoration: currentNote.decoration,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              currentNote.title,
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: currentNote.color.computeLuminance() < 0.4
+                        ? Colors.white
+                        : Colors.black,
+                  ),
+            ),
+            Expanded(
+              child: Markdown(
+                selectable: true,
+                padding: const EdgeInsets.all(4),
+                physics: const NeverScrollableScrollPhysics(),
+                styleSheet: MarkdownStyleSheet.fromTheme(
+                  Theme.of(context).copyWith(
+                    textTheme: markdownTheme,
+                  ),
+                ),
+                data: currentNote.text,
+              ),
+            ),
+          ],
+        ),
+      );
+
+      if ((i + 1) % 3 == 0) {
+        tiles.add(
+          StaggeredGridTile.count(
+            crossAxisCellCount: 2,
+            mainAxisCellCount: 1,
+            child: widget,
+          ),
+        );
+      } else {
+        tiles.add(
+          StaggeredGridTile.count(
+            crossAxisCellCount: 1,
+            mainAxisCellCount: 1.75,
+            child: widget,
+          ),
+        );
+      }
+    }
+
+    return tiles;
   }
 }
