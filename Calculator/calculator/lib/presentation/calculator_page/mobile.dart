@@ -1,7 +1,6 @@
+import 'package:calculator/presentation/widgets/calculator_button.dart';
 import 'package:calculator/provider/calculation_notifier.dart';
-import 'package:calculator/models/calculator_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class MobileCalculatorPage extends StatefulWidget {

@@ -1,7 +1,7 @@
 name: math_engine
 description: A simple math engine.
 version: 1.0.0
-repository: https://github.com/zTomz/Flutter-Sample-Projects/tree/main/Calculator/math_engine
+repository: https://github.com/zTomz/Flutter-Samples/tree/main/calculator/math_engine
 
 environment:
   sdk: ^3.3.0
